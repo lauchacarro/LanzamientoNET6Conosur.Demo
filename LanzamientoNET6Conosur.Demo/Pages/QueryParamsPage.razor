@@ -1,0 +1,26 @@
+﻿@page "/queryparams"
+
+<PageTitle>Query Params</PageTitle>
+
+<h3>Manipulación de Query Params. Ejemplo 👇</h3>
+
+<h5>?mensaje=Esto es un mensaje&nombres=NetBaires&nombres=Conosur&nombres=Latino .NET Online</h5>
+
+<AlertDanger Message="@Message" />
+
+<ul>
+
+    @foreach (var name in Names)
+    {
+        <li>@name</li>
+    }
+</ul>
+
+
+@code {
+    [Parameter, SupplyParameterFromQuery(Name = "mensaje")]
+    public string Message { get; set; } = string.Empty;
+
+    [Parameter, SupplyParameterFromQuery(Name = "nombres")]
+    public string[] Names { get; set; } = new string[] { };
+}

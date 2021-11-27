@@ -1,0 +1,32 @@
+﻿@page "/counter"
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Error Boundary Example</h1>
+
+<ErrorBoundary @ref="errorBoundary">
+    <ChildContent>
+        <Counter />
+    </ChildContent>
+    <ErrorContent>
+        <div class="alert alert-danger" role="alert">
+            Ocurrió un error!
+            <button class="btn btn-danget" @onclick="ButtonOnClick">Restaurar</button>
+        </div>
+    </ErrorContent>
+</ErrorBoundary>
+
+
+@code {
+
+    ErrorBoundary? errorBoundary;
+
+    private void ButtonOnClick()
+    {
+        if (errorBoundary is not null)
+        {
+            errorBoundary.Recover();
+        }
+    }
+
+}

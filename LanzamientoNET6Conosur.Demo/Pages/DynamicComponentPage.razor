@@ -1,0 +1,52 @@
+﻿@page "/dynamiccomponent"
+
+
+<PageTitle>Dynamic Component</PageTitle>
+
+<select @onchange="OnChange">
+    <option value="@nameof(Counter)">@nameof(Counter)</option>
+    <option value="@nameof(AlertDanger)">@nameof(AlertDanger)</option>
+</select>
+
+<h3>DynamicComponentPage</h3>
+
+
+@if (componentType is not null)
+{
+    <DynamicComponent Type="componentType" Parameters="parameters" />
+}
+
+
+
+
+
+@code {
+    Type? componentType = typeof(Counter);
+
+    Dictionary<string, object> parameters = new();
+
+
+    void OnChange(ChangeEventArgs e)
+    {
+        string componentname = e.Value?.ToString() ?? throw new ArgumentNullException();
+
+        componentType = Type.GetType("LanzamientoNET6Conosur.Demo.Components.Commons." + componentname);
+
+        if (componentname == nameof(Counter))
+        {
+            parameters = new Dictionary<string, object>()
+                {
+                    { "Count", 5 }
+                };
+        }
+
+        if (componentname == nameof(AlertDanger))
+        {
+            parameters = new Dictionary<string, object>()
+                {
+                    { "Message", "Mensaje desde DynamicComponent" }
+                };
+        }
+
+    }
+}

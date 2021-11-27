@@ -1,0 +1,17 @@
+﻿@page "/headcontent"
+
+<PageTitle>Head Content: @title</PageTitle>
+
+
+<HeadContent>
+    <meta name="My-Metatag" value="Lanzamiento .NET 6: @title" />
+</HeadContent>
+
+
+<h3>HeadContentPage</h3>
+
+<input type="text" placeholder="Ingresa Titulo" @bind="title" />
+
+@code {
+    private string title = string.Empty;
+}

@@ -1,0 +1,42 @@
+﻿
+
+<p role="status">Current count: @Count</p>
+
+
+        <button class="btn btn-primary" @onclick="IncrementCount">Sumar +1</button>
+        <button class="btn btn-secundary" @onclick="DecrementCount">Restar -1</button>
+
+
+@code {
+
+    [Parameter]
+    public int Count { get; set; } = 0;
+
+    [Parameter]
+    public EventCallback<int> OnChange { get; set; }
+
+    private async Task IncrementCount()
+    {
+        Count++;
+
+        if (OnChange.HasDelegate) await OnChange.InvokeAsync(Count);
+
+        if (Count > 10)
+        {
+            throw new MoreThan10Exception();
+        }
+    }
+
+    private async Task DecrementCount()
+    {
+        Count--;
+
+        if (OnChange.HasDelegate) await OnChange.InvokeAsync(Count);
+
+    }
+
+    class MoreThan10Exception : Exception
+    {
+
+    }
+}
